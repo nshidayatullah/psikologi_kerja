@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Filament\Resources\SurveyResponses;
+
+use App\Filament\Resources\SurveyResponses\Pages\CreateSurveyResponse;
+use App\Filament\Resources\SurveyResponses\Pages\EditSurveyResponse;
+use App\Filament\Resources\SurveyResponses\Pages\ListSurveyResponses;
+use App\Filament\Resources\SurveyResponses\Schemas\SurveyResponseForm;
+use App\Filament\Resources\SurveyResponses\Tables\SurveyResponsesTable;
+use App\Models\SurveyResponse;
+use BackedEnum;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Table;
+
+class SurveyResponseResource extends Resource
+{
+    protected static ?string $model = SurveyResponse::class;
+
+    protected static ?string $modelLabel = 'Data Hasil Survei';
+    protected static ?string $pluralModelLabel = 'Data Hasil Survei';
+    protected static string|\UnitEnum|null $navigationGroup = 'Pelaksanaan Survei';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-document-chart-bar';
+
+    public static function form(Schema $schema): Schema
+    {
+        return SurveyResponseForm::configure($schema);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return SurveyResponsesTable::configure($table);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()
+            ->with(['answers.question', 'session']);
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => ListSurveyResponses::route('/'),
+            'create' => CreateSurveyResponse::route('/create'),
+            'edit' => EditSurveyResponse::route('/{record}/edit'),
+        ];
+    }
+}
