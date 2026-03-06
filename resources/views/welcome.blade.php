@@ -868,16 +868,16 @@
             </div>
             <div class="hero-stats">
                 <div class="stat-item">
-                    <div class="stat-number">3-5 Min</div>
-                    <div class="stat-label">Durasi Assessment</div>
+                    <div class="stat-number">QR Code</div>
+                    <div class="stat-label">Distribusi Survei Digital</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Data Terlindungi</div>
+                    <div class="stat-number">3 TTD</div>
+                    <div class="stat-label">PIC 1 · PIC 2 · Dokter</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">Real-Time</div>
-                    <div class="stat-label">Laporan Kesiapan</div>
+                    <div class="stat-label">Dashboard & Laporan</div>
                 </div>
             </div>
         </div>
@@ -927,32 +927,31 @@
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-number">01</div>
-                    <div class="feature-icon">🧠</div>
-                    <h3>Rapid Mental Scan</h3>
-                    <p>Tes durasi 3–5 menit yang dirancang khusus untuk lingkungan tambang. Cepat, efektif, dan tidak mengganggu jadwal shift.</p>
-                    <span class="feature-tag">
-                        < 5 MENIT</span>
+                    <div class="feature-icon">📅</div>
+                    <h3>Manajemen Sesi Survei</h3>
+                    <p>Admin membuat sesi survei bulanan dengan mudah. Setiap sesi otomatis menghasilkan <strong>QR Code & link unik</strong> yang siap dibagikan ke peserta di lapangan.</p>
+                    <span class="feature-tag">QR CODE + LINK UNIK</span>
                 </div>
                 <div class="feature-card">
                     <div class="feature-number">02</div>
-                    <div class="feature-icon">📉</div>
-                    <h3>Fatigue Risk Profile</h3>
-                    <p>Visualisasi tingkat kelelahan berdasarkan pola tidur dan beban kerja kognitif dengan representasi grafis yang mudah dipahami.</p>
-                    <span class="feature-tag">VISUALISASI GRAFIS</span>
+                    <div class="feature-icon">�</div>
+                    <h3>Form Survei Digital Publik</h3>
+                    <p>Karyawan mengisi biodata & kuesioner psikologi via web tanpa perlu login atau install aplikasi. Skor & klasifikasi <strong>RINGAN / SEDANG / BERAT</strong> dihitung otomatis.</p>
+                    <span class="feature-tag">TANPA LOGIN</span>
                 </div>
                 <div class="feature-card">
                     <div class="feature-number">03</div>
-                    <div class="feature-icon">📋</div>
-                    <h3>Integrasi SMKP</h3>
-                    <p>Laporan yang sesuai dengan standar audit Sistem Manajemen Keselamatan Pertambangan. Siap dipakai untuk keperluan audit K3.</p>
-                    <span class="feature-tag">AUDIT-READY</span>
+                    <div class="feature-icon">✍️</div>
+                    <h3>Tanda Tangan Digital</h3>
+                    <p>Link tanda tangan khusus untuk <strong>PIC 1, PIC 2, dan Dokter Pemeriksa</strong>. Setiap pihak menandatangani laporan dari perangkat masing-masing secara aman.</p>
+                    <span class="feature-tag">3 PENANDA TANGAN</span>
                 </div>
                 <div class="feature-card">
                     <div class="feature-number">04</div>
-                    <div class="feature-icon">🔒</div>
-                    <h3>Privacy Guaranteed</h3>
-                    <p>Data psikologis diolah secara profesional dan rahasia untuk pengembangan diri. Tidak akan digunakan untuk hal yang merugikan pekerja.</p>
-                    <span class="feature-tag">100% RAHASIA</span>
+                    <div class="feature-icon">�</div>
+                    <h3>Dashboard & Laporan Otomatis</h3>
+                    <p>Dashboard admin real-time menampilkan statistik hasil survei, grafik 6 dimensi stresor psikologi, dan laporan siap cetak <strong>lengkap dengan tanda tangan digital</strong>.</p>
+                    <span class="feature-tag">AUDIT-READY</span>
                 </div>
             </div>
         </div>
@@ -970,7 +969,7 @@
                     <p class="section-desc" style="margin-bottom:2rem;">
                         Bekerja di PPA Site BIB membutuhkan ketangguhan fisik dan mental. Gunakan aplikasi ini sebagai cermin kesiapan Anda hari ini. Jangan paksakan jika fokus menurun—<strong style="color:var(--gold)">keselamatan Anda adalah prioritas perusahaan.</strong>
                     </p>
-                    <a href="{{ route('filament.admin.resources.survey-sessions.index') }}" class="btn-primary" style="display:inline-flex;">
+                    <a href="/admin" class="btn-primary" style="display:inline-flex;">
                         Mulai Hari Ini →
                     </a>
                 </div>
@@ -1033,7 +1032,7 @@
                         <li><a href="#nilai">Nilai & Manfaat</a></li>
                         <li><a href="#fitur">Fitur Aplikasi</a></li>
                         <li><a href="#pekerja">Untuk Pekerja</a></li>
-                        <li><a href="{{ route('filament.admin.pages.dashboard') }}">Dashboard Admin</a></li>
+                        <li><a href="/admin">Dashboard Admin</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
