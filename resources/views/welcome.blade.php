@@ -1046,8 +1046,8 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2026 PT. Putra Perkasa Abadi — <span class="dept">Safety & Health Department Site BIB</span>. Hak Cipta Dilindungi.</p>
-                <p style="color:rgba(255,255,255,0.2); font-size:0.7rem;">Powered by PPA Digital Transformation</p>
+                <p>© 2026 PT. Putra Perkasa Abadi — <span class="dept">Safety, Health & Environment Department Site BIB</span>. Hak Cipta Dilindungi.</p>
+                <p style="color:rgba(255,255,255,0.2); font-size:0.7rem;">Powered by Paramedic Ns.Hidayatullah</p>
             </div>
         </div>
     </footer>
