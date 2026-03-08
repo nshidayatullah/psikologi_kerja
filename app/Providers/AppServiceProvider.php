@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         if (config('app.env') === 'production') {
             URL::forceScheme('https');
+            putenv('PUPPETEER_CACHE_DIR=/app/puppeteer-cache');
         }
     }
 }
