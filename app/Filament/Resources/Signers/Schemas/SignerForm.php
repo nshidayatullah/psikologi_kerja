@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Signers\Schemas;
 
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Schema;
 
 class SignerForm

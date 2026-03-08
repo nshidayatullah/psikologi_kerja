@@ -17,19 +17,19 @@ class SignerSeeder extends Seeder
                 'type' => 'pic1',
                 'label' => 'PIC 1',
                 'name' => 'M. Hidayatullah',
-                'role' => 'Safety Officer',
+                'role' => 'Paremedic',
             ],
             [
                 'type' => 'pic2',
                 'label' => 'PIC 2',
-                'name' => 'Junardi',
-                'role' => 'HR Manager',
+                'name' => 'Zulkifli',
+                'role' => 'Paramedic',
             ],
             [
                 'type' => 'reviewer',
                 'label' => 'Dokter Pemeriksa',
-                'name' => 'dr. Haamim Sajdah S',
-                'role' => 'Corporate Doctor',
+                'name' => 'dr. Haamim Sajdah Sya\'ban',
+                'role' => 'Dokter Perusahaan',
             ],
         ];
 

@@ -72,7 +72,7 @@ class SurveySessionsTable
                         ->label('Lihat Laporan')
                         ->icon('heroicon-o-document-chart-bar')
                         ->color('info')
-                        ->url(fn($record) => route('report.preview', ['uuid' => $record->uuid]))
+                        ->url(fn($record) => route('report.download', ['uuid' => $record->uuid]))
                         ->openUrlInNewTab(),
                     EditAction::make(),
                 ])->icon('heroicon-m-ellipsis-vertical')

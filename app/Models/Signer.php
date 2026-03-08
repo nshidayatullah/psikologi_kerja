@@ -11,5 +11,6 @@ class Signer extends Model
         'label',
         'name',
         'role',
+        'signature',
     ];
 }

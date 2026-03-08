@@ -22,52 +22,79 @@ class SurveySessionForm
                             ->required(),
                         TextInput::make('uuid')
                             ->label('UUID (Otomatis)')
-                            ->disabled()
+                            ->hidden()
                             ->dehydrated(false),
                         Toggle::make('is_active')
                             ->label('Aktif?')
                             ->default(true)
                             ->required(),
-                    ]),
+                    ])
+                    ->columnSpanFull(),
 
                 // PIC Section (sidebar-style columns)
-                Section::make('Penyusun & Pemeriksa Laporan')
-                    ->description('Nama dan jabatan yang akan muncul di Lembar Pengesahan laporan.')
-                    ->columns(2)
+                Section::make('Pejabat Penandatangan')
+                    ->description('Nama dan jabatan yang akan muncul di Lembar Pengesahan laporan. Data default diambil dari menu Signers.')
                     ->schema([
-                        TextInput::make('pic1_name')
-                            ->label('Nama PIC 1')
-                            ->default(fn() => \App\Models\Signer::where('type', 'pic1')->first()?->name ?? 'M. Hidayatullah')
-                            ->readOnly(),
-                        TextInput::make('pic2_name')
-                            ->label('Nama PIC 2')
-                            ->placeholder(fn() => \App\Models\Signer::where('type', 'pic2')->first()?->name ?? 'Nama PIC 2'),
-                        TextInput::make('reviewer_name')
-                            ->label('Nama Pemeriksa')
-                            ->placeholder(fn() => \App\Models\Signer::where('type', 'reviewer')->first()?->name ?? 'Nama Dokter'),
-                        TextInput::make('reviewer_role')
-                            ->label('Jabatan Pemeriksa')
-                            ->placeholder(fn() => \App\Models\Signer::where('type', 'reviewer')->first()?->role ?? 'Dokter Perusahaan'),
-                    ]),
+                        \Filament\Schemas\Components\Fieldset::make('PIC 1 (Sisi Kiri)')
+                            ->schema([
+                                TextInput::make('pic1_name')
+                                    ->label('Nama Lengkap')
+                                    ->placeholder(fn() => \App\Models\Signer::where('type', 'pic1')->first()?->name)
+                                    ->hint('Kosongkan untuk menggunakan data global admin'),
+                                TextInput::make('pic1_role')
+                                    ->label('Jabatan / Gelar')
+                                    ->placeholder(fn() => \App\Models\Signer::where('type', 'pic1')->first()?->role)
+                                    ->hint('Kosongkan untuk menggunakan data global admin'),
+                            ])->columnSpan(1),
+
+                        \Filament\Schemas\Components\Fieldset::make('PIC 2 (Sisi Kanan)')
+                            ->schema([
+                                TextInput::make('pic2_name')
+                                    ->label('Nama Lengkap')
+                                    ->placeholder(fn() => \App\Models\Signer::where('type', 'pic2')->first()?->name)
+                                    ->hint('Kosongkan untuk menggunakan data global admin'),
+                                TextInput::make('pic2_role')
+                                    ->label('Jabatan / Gelar')
+                                    ->placeholder(fn() => \App\Models\Signer::where('type', 'pic2')->first()?->role)
+                                    ->hint('Kosongkan untuk menggunakan data global admin'),
+                            ])->columnSpan(1),
+
+                        \Filament\Schemas\Components\Fieldset::make('Dokter Pemeriksa (Tengah)')
+                            ->schema([
+                                TextInput::make('reviewer_name')
+                                    ->label('Nama Lengkap')
+                                    ->placeholder(fn() => \App\Models\Signer::where('type', 'reviewer')->first()?->name)
+                                    ->hint('Kosongkan untuk menggunakan data global admin'),
+                                TextInput::make('reviewer_role')
+                                    ->label('Jabatan / Gelar')
+                                    ->placeholder(fn() => \App\Models\Signer::where('type', 'reviewer')->first()?->role)
+                                    ->hint('Kosongkan untuk menggunakan data global admin'),
+                            ])->columnSpanFull(),
+                    ])
+                    ->columns(2)
+                    ->columnSpanFull()
+                    ->hidden(),
 
                 // Rich text recommendations
                 Section::make('Saran dan Rekomendasi')
                     ->schema([
                         RichEditor::make('recommendations')
                             ->label('Isi Saran dan Rekomendasi')
-                            ->helperText('Isi akan ditampilkan di bagian "9. Saran dan Rekomendasi" pada Laporan.')
+                            ->helperText('Isi akan ditampilkan di bagian "8. Saran dan Rekomendasi" pada Laporan.')
                             ->toolbarButtons(['bold', 'italic', 'underline', 'orderedList', 'bulletList', 'h2', 'h3'])
                             ->columnSpanFull(),
-                    ]),
+                    ])
+                    ->columnSpanFull(),
 
                 Section::make('Rencana Tindak Lanjut')
                     ->schema([
                         RichEditor::make('follow_up_plan')
                             ->label('Isi Rencana Tindak Lanjut')
-                            ->helperText('Isi akan ditampilkan di bagian "10.c. Rencana Tindak Lanjut" pada Laporan.')
+                            ->helperText('Isi akan ditampilkan di bagian "9.c. Rencana Tindak Lanjut" pada Laporan.')
                             ->toolbarButtons(['bold', 'italic', 'underline', 'orderedList', 'bulletList', 'h2', 'h3'])
                             ->columnSpanFull(),
-                    ]),
+                    ])
+                    ->columnSpanFull(),
             ]);
     }
 }

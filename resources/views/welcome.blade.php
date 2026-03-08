@@ -660,8 +660,6 @@
             font-size: 1.2rem;
         }
 
-        .worker-card-text {}
-
         .worker-card-text strong {
             display: block;
             color: var(--white);
