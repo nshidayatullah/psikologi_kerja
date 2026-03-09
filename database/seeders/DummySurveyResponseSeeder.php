@@ -6,6 +6,7 @@ use App\Models\Question;
 use App\Models\SurveyResponse;
 use App\Models\SurveyResponseAnswer;
 use App\Models\SurveySession;
+use App\Models\Signer;
 use Illuminate\Database\Seeder;
 
 class DummySurveyResponseSeeder extends Seeder
@@ -15,15 +16,19 @@ class DummySurveyResponseSeeder extends Seeder
         $session = SurveySession::first();
 
         if (!$session) {
+            $pic1 = Signer::where('type', 'pic1')->first();
+            $pic2 = Signer::where('type', 'pic2')->first();
+            $reviewer = Signer::where('type', 'reviewer')->first();
+
             $session = SurveySession::create([
                 'title' => 'Sesi Survey Dummy',
                 'is_active' => true,
-                'pic1_name' => 'M. Hidayatullah',
-                'pic1_role' => 'Safety Officer',
-                'pic2_name' => 'Junardi',
-                'pic2_role' => 'HR Manager',
-                'reviewer_name' => 'dr. Haamim Sajdah Sya\'ban',
-                'reviewer_role' => 'Corporate Doctor',
+                'pic1_name' => $pic1->name ?? 'M. Hidayatullah',
+                'pic1_role' => $pic1->role ?? 'Safety Officer',
+                'pic2_name' => $pic2->name ?? 'Zulkifli',
+                'pic2_role' => $pic2->role ?? 'Paramedic',
+                'reviewer_name' => $reviewer->name ?? 'dr. Haamim Sajdah Sya\'ban',
+                'reviewer_role' => $reviewer->role ?? 'Corporate Doctor',
             ]);
         }
 

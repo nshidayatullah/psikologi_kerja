@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\SurveySession;
+use App\Models\Signer;
 
 class PublicSignatureForm extends Component
 {
@@ -21,16 +22,11 @@ class PublicSignatureForm extends Component
         $this->type = $type;
         $this->session = SurveySession::where('uuid', $uuid)->firstOrFail();
 
-        if ($type === 'pic1') {
-            $this->signerName = $this->session->pic1_name ?: 'M. Hidayatullah';
-            $this->signerRole = $this->session->pic1_role ?: 'Paramedic';
-        } elseif ($type === 'pic2') {
-            $this->signerName = $this->session->pic2_name ?: 'Junardi';
-            $this->signerRole = $this->session->pic2_role ?: 'Paramedic';
-        } elseif ($type === 'reviewer') {
-            $this->signerName = $this->session->reviewer_name ?: 'dr. Haamim Sajdah S';
-            $this->signerRole = $this->session->reviewer_role ?: 'Dokter Perusahaan';
-        } else {
+        $signer = Signer::where('type', $this->type)->first();
+        $this->signerName = $this->session->{"{$this->type}_name"} ?: ($signer->name ?? '');
+        $this->signerRole = $this->session->{"{$this->type}_role"} ?: ($signer->role ?? '');
+
+        if (!$this->signerName && !$this->signerRole && !$signer) {
             abort(404);
         }
     }

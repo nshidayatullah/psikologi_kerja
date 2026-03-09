@@ -19,19 +19,19 @@
             </div>
             @else
             <div class="mb-6">
-                <p class="text-gray-600 mb-2">Anda menandatangani sebagai:</p>
-                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <p class="font-bold text-lg text-gray-800">{{ $signerName }}</p>
-                    <p class="text-gray-500">{{ $signerRole }}</p>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Silakan Tanda Tangan di bawah ini:</label>
+                <p class="text-xs text-gray-400 mt-2 italic">* Gunakan jari atau mouse untuk menandatangani</p>
+                <div class="border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 overflow-hidden" style="touch-action: none;">
+                    <canvas id="signature-pad" class="w-full h-64 cursor-crosshair"></canvas>
                 </div>
             </div>
 
             <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Silakan Tanda Tangan di bawah ini:</label>
-                <div class="border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 overflow-hidden" style="touch-action: none;">
-                    <canvas id="signature-pad" class="w-full h-64 cursor-crosshair"></canvas>
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <p class="font-bold text-4xl text-gray-800 text-center">{{ $signerName }}</p>
+                    <p class="text-gray-500 text-4xl text-center">{{ $signerRole }}</p>
                 </div>
-                <p class="text-xs text-gray-400 mt-2 italic">* Gunakan jari atau mouse untuk menandatangani</p>
+                <p class="text-gray-600 mt-2 text-sm text-center">Anda menandatangani sebagai</p>
             </div>
 
             <div class="flex gap-4">
