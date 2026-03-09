@@ -22,10 +22,9 @@ aptPkgs = [
     "libxshmfence1"
 ]
 
-[phases.install]
+[phases.browsershot]
+dependsOn = ["install"]
 cmds = [
-    "composer install",
-    "npm install",
     "npm install -g puppeteer",
     "npx puppeteer browsers install chrome-headless-shell"
 ]
