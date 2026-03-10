@@ -28,7 +28,7 @@
 
             <div class="mb-6">
                 <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <p class="font-bold text-4xl text-gray-800 text-center">{{ $signerName }}</p>
+                    <p class="font-bold text-4xl text-gray-800 text-center underline">{{ $signerName }}</p>
                     <p class="text-gray-500 text-4xl text-center">{{ $signerRole }}</p>
                 </div>
                 <p class="text-gray-600 mt-2 text-sm text-center">Anda menandatangani sebagai</p>

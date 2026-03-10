@@ -12,6 +12,8 @@ use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
+use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Assets\Js;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -28,6 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->sidebarCollapsibleOnDesktop()
             ->spa()
             ->colors([
                 'primary' => Color::Lime,
@@ -36,12 +39,19 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
-                Dashboard::class,
+                \App\Filament\Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                \App\Filament\Widgets\StatsOverview::class,
+                \App\Filament\Widgets\RadarStressorChart::class,
+                \App\Filament\Widgets\DepartmentStressChart::class,
+                \App\Filament\Widgets\KetaksaanPeranChart::class,
+                \App\Filament\Widgets\KonflikPeranChart::class,
+                \App\Filament\Widgets\BebanKuantitatifChart::class,
+                \App\Filament\Widgets\BebanKualitatifChart::class,
+                \App\Filament\Widgets\PengembanganKarirChart::class,
+                \App\Filament\Widgets\TanggungJawabChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -57,5 +67,13 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+    }
+
+    public function boot(): void
+    {
+        FilamentAsset::register([
+            Js::make('chart-js', asset('js/chart.min.js')),
+            Js::make('chart-datalabels', asset('js/chartjs-plugin-datalabels.min.js')),
+        ]);
     }
 }

@@ -2,14 +2,18 @@
 
 namespace App\Filament\Resources\SurveySessions\Tables;
 
+use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+use Filament\Support\Colors\Color;
+use Filament\Notifications\Notification;
+use App\Models\SurveySession;
 
 class SurveySessionsTable
 {
@@ -19,18 +23,19 @@ class SurveySessionsTable
             ->columns([
                 TextColumn::make('title')
                     ->label('Judul Sesi')
-                    ->searchable(),
-                TextColumn::make('uuid')
-                    ->label('UUID')
-                    ->searchable(),
-                IconColumn::make('is_active')
-                    ->label('Aktif?')
-                    ->boolean(),
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('responses_count')
+                    ->label('Jumlah Responden')
+                    ->counts('responses')
+                    ->sortable(),
+
+                ToggleColumn::make('is_active')
+                    ->label('Aktif'),
+
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -40,43 +45,67 @@ class SurveySessionsTable
             ])
             ->recordActions([
                 ActionGroup::make([
-                    Action::make('qr_code')
-                        ->label('QR Code')
-                        ->icon('heroicon-o-qr-code')
-                        ->modalHeading(fn($record) => 'QR Code Link: ' . $record->title)
-                        ->modalContent(fn($record) => new \Illuminate\Support\HtmlString('<div style="text-align: center; padding: 20px;">' . \SimpleSoftwareIO\QrCode\Facades\QrCode::size(200)->generate(url('/surveys/' . $record->uuid)) . '<br><br><a href="' . url('/surveys/' . $record->uuid) . '" target="_blank" style="color: blue; text-decoration: underline;">Buka Link Kuesioner</a></div>'))
-                        ->modalSubmitAction(false)
-                        ->modalCancelAction(false),
-                    Action::make('copy_link_pic1')
-                        ->label('Copy Link PIC 1')
-                        ->icon('heroicon-o-clipboard-document')
-                        ->color('success')
-                        ->extraAttributes(fn($record) => [
-                            'onclick' => "navigator.clipboard.writeText('" . route('public.sign', ['uuid' => $record->uuid, 'type' => 'pic1']) . "').then(() => { new FilamentNotification().title('Link PIC 1 Berhasil Disalin').success().send(); })",
-                        ]),
-                    Action::make('copy_link_pic2')
-                        ->label('Copy Link PIC 2')
-                        ->icon('heroicon-o-clipboard-document')
-                        ->color('success')
-                        ->extraAttributes(fn($record) => [
-                            'onclick' => "navigator.clipboard.writeText('" . route('public.sign', ['uuid' => $record->uuid, 'type' => 'pic2']) . "').then(() => { new FilamentNotification().title('Link PIC 2 Berhasil Disalin').success().send(); })",
-                        ]),
-                    Action::make('copy_link_reviewer')
-                        ->label('Copy Link Dokter')
-                        ->icon('heroicon-o-clipboard-document')
-                        ->color('success')
-                        ->extraAttributes(fn($record) => [
-                            'onclick' => "navigator.clipboard.writeText('" . route('public.sign', ['uuid' => $record->uuid, 'type' => 'reviewer']) . "').then(() => { new FilamentNotification().title('Link Dokter Berhasil Disalin').success().send(); })",
-                        ]),
-                    Action::make('report')
-                        ->label('Lihat Laporan')
-                        ->icon('heroicon-o-document-chart-bar')
-                        ->color('info')
-                        ->url(fn($record) => route('report.download', ['uuid' => $record->uuid]))
-                        ->openUrlInNewTab(),
                     EditAction::make(),
-                ])->icon('heroicon-m-ellipsis-vertical')
-                    ->tooltip('Aksi')
+                    Action::make('survey_link')
+                        ->label('Link Survey')
+                        ->icon('heroicon-o-link')
+                        ->color(Color::Blue)
+                        ->url(fn(SurveySession $record) => route('survey.show', $record->uuid))
+                        ->openUrlInNewTab(),
+                    Action::make('preview_report')
+                        ->label('Pratinjau Laporan')
+                        ->icon('heroicon-o-document-magnifying-glass')
+                        ->color(Color::Emerald)
+                        ->url(fn(SurveySession $record) => route('report.preview', $record->uuid))
+                        ->openUrlInNewTab(),
+                    Action::make('download_pdf')
+                        ->label('Download PDF')
+                        ->icon('heroicon-o-arrow-down-tray')
+                        ->color(Color::Rose)
+                        ->url(fn(SurveySession $record) => route('report.download', $record->uuid))
+                        ->openUrlInNewTab(),
+
+                    Action::make('sign_pic1')
+                        ->label('Copy Link TTD PIC 1')
+                        ->icon('heroicon-o-clipboard-document')
+                        ->color(Color::Amber)
+                        ->action(function (SurveySession $record, $livewire) {
+                            $url = route('public.sign', ['uuid' => $record->uuid, 'type' => 'pic1']);
+                            $livewire->js("window.navigator.clipboard.writeText('{$url}')");
+                            Notification::make()
+                                ->title('Link TTD PIC 1 disalin ke clipboard')
+                                ->success()
+                                ->send();
+                        }),
+
+                    Action::make('sign_pic2')
+                        ->label('Copy Link TTD PIC 2')
+                        ->icon('heroicon-o-clipboard-document')
+                        ->color(Color::Amber)
+                        ->action(function (SurveySession $record, $livewire) {
+                            $url = route('public.sign', ['uuid' => $record->uuid, 'type' => 'pic2']);
+                            $livewire->js("window.navigator.clipboard.writeText('{$url}')");
+                            Notification::make()
+                                ->title('Link TTD PIC 2 disalin ke clipboard')
+                                ->success()
+                                ->send();
+                        }),
+
+                    Action::make('sign_reviewer')
+                        ->label('Copy Link TTD Dokter')
+                        ->icon('heroicon-o-clipboard-document')
+                        ->color(Color::Amber)
+                        ->action(function (SurveySession $record, $livewire) {
+                            $url = route('public.sign', ['uuid' => $record->uuid, 'type' => 'reviewer']);
+                            $livewire->js("window.navigator.clipboard.writeText('{$url}')");
+                            Notification::make()
+                                ->title('Link TTD Dokter disalin ke clipboard')
+                                ->success()
+                                ->send();
+                        }),
+
+                    DeleteAction::make(),
+                ])
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

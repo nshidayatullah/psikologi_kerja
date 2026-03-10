@@ -27,7 +27,7 @@ class SignerSeeder extends Seeder
             ],
             [
                 'type' => 'reviewer',
-                'label' => 'Dokter Pemeriksa',
+                'label' => 'Dokter Perusahaan',
                 'name' => 'dr. Haamim Sajdah Sya\'ban',
                 'role' => 'Dokter Perusahaan',
             ],

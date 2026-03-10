@@ -27,17 +27,12 @@ class SignerResource extends Resource
 
     public static function canCreate(): bool
     {
-        return false;
+        return true;
     }
 
     public static function canDelete(Model $record): bool
     {
-        return false;
-    }
-
-    public static function canDeleteAny(): bool
-    {
-        return false;
+        return true;
     }
 
     public static function form(Schema $schema): Schema

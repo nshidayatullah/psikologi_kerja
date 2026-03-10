@@ -46,7 +46,7 @@
         }
 
         .toc-list li span {
-            font-weight: bold;
+            font-weight: normal;
             order: 2;
         }
 

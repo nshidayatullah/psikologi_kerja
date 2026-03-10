@@ -1,8 +1,18 @@
 <div class="max-w-4xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-        <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
-            <h2 class="text-2xl font-bold text-gray-800">{{ $session->title }}</h2>
-            <p class="mt-1 text-sm text-gray-600">Survei Diagnosis Stres Kerja Kepmenaker No. 28 Tahun 2021</p>
+        <div class="px-6 py-6 border-b border-gray-200 bg-gray-50 text-center">
+            <h2 class="text-2xl font-extrabold text-blue-900 leading-tight">
+                Formulir Pengukuran Resiko Psikologi <br>
+                PT. Putra Perkasa Abadi Site BIB 2026
+            </h2>
+            <div class="mt-4 max-w-2xl mx-auto space-y-3">
+                <p class="text-sm text-gray-700 leading-relaxed">
+                    Ini adalah survey yang dilakukan berdasarkan <strong>Permenaker 05 tahun 2018</strong> oleh Departemen SHE PT. PPA SITE BIB
+                </p>
+                <p class="text-xs text-red-600 font-bold bg-red-50 py-2 px-4 rounded-full border border-red-100 inline-block">
+                    Setiap jawaban responden akan dijamin kerahasiaannya identitas, jawaban dan tidak akan mempengaruhi psikososial maupun karir responden
+                </p>
+            </div>
         </div>
 
         @if($isSubmitted)

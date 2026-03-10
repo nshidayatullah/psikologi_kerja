@@ -31,49 +31,71 @@ class SurveySessionForm
                     ])
                     ->columnSpanFull(),
 
-                // PIC Section (sidebar-style columns)
+                // PIC Section
                 Section::make('Pejabat Penandatangan')
-                    ->description('Nama dan jabatan yang akan muncul di Lembar Pengesahan laporan. Data default diambil dari menu Signers.')
+                    ->description('Nama dan jabatan yang akan muncul di Lembar Pengesahan laporan. Jika dikosongkan, data default akan diambil dari pengaturan global.')
                     ->schema([
                         \Filament\Schemas\Components\Fieldset::make('PIC 1 (Sisi Kiri)')
                             ->schema([
+                                \Filament\Forms\Components\Select::make('pic1_signer_select')
+                                    ->label('Pilih PIC 1 Global')
+                                    ->options(fn() => \App\Models\Signer::where('type', 'pic1')->pluck('name', 'id'))
+                                    ->live()
+                                    ->afterStateUpdated(function ($state, $set) {
+                                        if ($signer = \App\Models\Signer::find($state)) {
+                                            $set('pic1_name', $signer->name);
+                                            $set('pic1_role', $signer->role);
+                                        }
+                                    })
+                                    ->dehydrated(false),
                                 TextInput::make('pic1_name')
-                                    ->label('Nama Lengkap')
-                                    ->placeholder(fn() => \App\Models\Signer::where('type', 'pic1')->first()?->name)
-                                    ->hint('Kosongkan untuk menggunakan data global admin'),
+                                    ->label('Nama Lengkap (Override)'),
                                 TextInput::make('pic1_role')
-                                    ->label('Jabatan / Gelar')
-                                    ->placeholder(fn() => \App\Models\Signer::where('type', 'pic1')->first()?->role)
-                                    ->hint('Kosongkan untuk menggunakan data global admin'),
-                            ])->columnSpan(1),
+                                    ->label('Jabatan / Gelar'),
+                            ])->columnSpan(2),
 
                         \Filament\Schemas\Components\Fieldset::make('PIC 2 (Sisi Kanan)')
                             ->schema([
+                                \Filament\Forms\Components\Select::make('pic2_signer_select')
+                                    ->label('Pilih PIC 2 Global')
+                                    ->options(fn() => \App\Models\Signer::where('type', 'pic2')->pluck('name', 'id'))
+                                    ->live()
+                                    ->afterStateUpdated(function ($state, $set) {
+                                        if ($signer = \App\Models\Signer::find($state)) {
+                                            $set('pic2_name', $signer->name);
+                                            $set('pic2_role', $signer->role);
+                                        }
+                                    })
+                                    ->dehydrated(false),
                                 TextInput::make('pic2_name')
-                                    ->label('Nama Lengkap')
-                                    ->placeholder(fn() => \App\Models\Signer::where('type', 'pic2')->first()?->name)
-                                    ->hint('Kosongkan untuk menggunakan data global admin'),
+                                    ->label('Nama Lengkap (Override)'),
                                 TextInput::make('pic2_role')
-                                    ->label('Jabatan / Gelar')
-                                    ->placeholder(fn() => \App\Models\Signer::where('type', 'pic2')->first()?->role)
-                                    ->hint('Kosongkan untuk menggunakan data global admin'),
-                            ])->columnSpan(1),
+                                    ->label('Jabatan / Gelar'),
+                            ])->columnSpan(2),
 
-                        \Filament\Schemas\Components\Fieldset::make('Dokter Pemeriksa (Tengah)')
+                        \Filament\Schemas\Components\Group::make()
+                            ->columnSpan(1),
+                        \Filament\Schemas\Components\Fieldset::make('Dokter Perusahaan (Tengah)')
                             ->schema([
+                                \Filament\Forms\Components\Select::make('reviewer_signer_select')
+                                    ->label('Pilih Dokter Global')
+                                    ->options(fn() => \App\Models\Signer::where('type', 'reviewer')->pluck('name', 'id'))
+                                    ->live()
+                                    ->afterStateUpdated(function ($state, $set) {
+                                        if ($signer = \App\Models\Signer::find($state)) {
+                                            $set('reviewer_name', $signer->name);
+                                            $set('reviewer_role', $signer->role);
+                                        }
+                                    })
+                                    ->dehydrated(false),
                                 TextInput::make('reviewer_name')
-                                    ->label('Nama Lengkap')
-                                    ->placeholder(fn() => \App\Models\Signer::where('type', 'reviewer')->first()?->name)
-                                    ->hint('Kosongkan untuk menggunakan data global admin'),
+                                    ->label('Nama Lengkap (Override)'),
                                 TextInput::make('reviewer_role')
-                                    ->label('Jabatan / Gelar')
-                                    ->placeholder(fn() => \App\Models\Signer::where('type', 'reviewer')->first()?->role)
-                                    ->hint('Kosongkan untuk menggunakan data global admin'),
-                            ])->columnSpanFull(),
+                                    ->label('Jabatan / Gelar'),
+                            ])->columnSpan(2),
                     ])
-                    ->columns(2)
-                    ->columnSpanFull()
-                    ->hidden(),
+                    ->columns(4)
+                    ->columnSpanFull(),
 
                 // Rich text recommendations
                 Section::make('Saran dan Rekomendasi')
