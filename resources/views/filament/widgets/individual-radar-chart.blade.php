@@ -59,9 +59,9 @@ $chartData[] = $totals[$category->id] ?? 0;
                                 const numLabels = chart.data.labels.length;
 
                                 const zones = [
-                                    { max: 35, color: 'rgba(239, 68, 68, 0.15)' },
-                                    { max: 23, color: 'rgba(245, 158, 11, 0.2)' },
-                                    { max: 11, color: 'rgba(16, 185, 129, 0.25)' }
+                                    { max: 35, color: '#FF9B9B' },
+                                    { max: 23, color: '#FFD6A5' },
+                                    { max: 11, color: '#CBFFA9' }
                                 ];
 
                                 zones.forEach(zone => {
@@ -82,8 +82,10 @@ $chartData[] = $totals[$category->id] ?? 0;
                         };
 
                         const chartData = @js($chartData);
-                        const themeColor = 'rgba(71, 85, 105, ';
-                        const borderTheme = 'lime'; // Diubah menjadi lime
+
+                        // Use a consistent blue color for the data line
+                        const themeColor = 'rgba(37, 99, 235, '; // Blue 600
+                        const borderTheme = '#2563eb';
 
                         this.chart = new Chart($el, {
                             type: 'radar',
@@ -127,7 +129,7 @@ $chartData[] = $totals[$category->id] ?? 0;
                                     legend: { display: false },
                                     datalabels: {
                                         display: true,
-                                        color: '#334155',
+                                        color: '#2563eb',
                                         font: {
                                             weight: 'bold',
                                             size: 11
