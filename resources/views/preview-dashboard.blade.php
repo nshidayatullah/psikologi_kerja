@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Report Preview Dashboard</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @include('partials.umami')
     <style>
         body {
             background-color: #f8fafc;

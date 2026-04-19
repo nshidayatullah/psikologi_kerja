@@ -32,6 +32,10 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->sidebarCollapsibleOnDesktop()
             ->spa()
+            ->renderHook(
+                'panels::head.end',
+                fn (): string => view('partials.umami')->render(),
+            )
             ->colors([
                 'primary' => Color::Lime,
             ])

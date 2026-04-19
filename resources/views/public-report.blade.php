@@ -14,6 +14,7 @@
     <script src="{{ asset('js/chart.min.js') }}"></script>
     <script src="{{ asset('js/chartjs-plugin-datalabels.min.js') }}"></script>
     @endif
+    @include('partials.umami')
     <style>
         * {
             box-sizing: border-box;
