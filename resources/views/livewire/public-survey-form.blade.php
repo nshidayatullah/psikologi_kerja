@@ -114,13 +114,13 @@
                     <div class="flex flex-wrap gap-3 sm:gap-6 items-center mt-2">
                         @php
                         $likertScale = [
-                        1 => 'Tidak pernah',
-                        2 => 'Jarang sekali',
-                        3 => 'Jarang',
-                        4 => 'Kadang-kadang',
-                        5 => 'Sering',
-                        6 => 'Sering kali',
-                        7 => 'Selalu',
+                        1 => 'Tidak pernah menyebabkan stress',
+                        2 => 'Jarang sekali menyebabkan stress',
+                        3 => 'Jarang menyebabkan stress',
+                        4 => 'Kadang-kadang menyebabkan stress',
+                        5 => 'Sering menyebabkan stress',
+                        6 => 'Sering kali menyebabkan stress',
+                        7 => 'Selalu menyebabkan stress',
                         ];
                         @endphp
                         @foreach($likertScale as $value => $label)
