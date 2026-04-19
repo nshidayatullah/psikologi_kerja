@@ -52,8 +52,17 @@
                             const label = this.getLabelForValue(value);
                             if (label.length > 12 && label.includes(' ')) {
                                 const words = label.split(' ');
-                                const mid = Math.ceil(words.length / 2);
-                                return [words.slice(0, mid).join(' '), words.slice(mid).join(' ')];
+                                if (label.length > 20 && words.length >= 3) {
+                                    const part = Math.ceil(words.length / 3);
+                                    return [
+                                        words.slice(0, part).join(' '),
+                                        words.slice(part, part * 2).join(' '),
+                                        words.slice(part * 2).join(' ')
+                                    ].filter(line => line.trim() !== '');
+                                } else {
+                                    const mid = Math.ceil(words.length / 2);
+                                    return [words.slice(0, mid).join(' '), words.slice(mid).join(' ')];
+                                }
                             }
                             return label;
                         }
