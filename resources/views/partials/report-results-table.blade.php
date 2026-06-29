@@ -47,7 +47,7 @@
             @forelse($results as $index => $row)
             <tr>
                 <td class="border border-gray-400 p-2">{{ $index + 1 }}</td>
-                <td class="border border-gray-400 p-2">{{ mb_strtoupper($row['name']) }}</td>
+                <td class="border border-gray-400 p-2">Responden {{ $index + 1 }}</td>
                 <td class="border border-gray-400 p-2">{{ mb_strtoupper($row['position']) }}</td>
                 @foreach($categories as $cat)
                 <td class="border border-gray-400 p-1">{{ $row['scores'][$cat->id] }}</td>
